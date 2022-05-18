@@ -1,6 +1,34 @@
 import React from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import { Categories, IToDo, toDoState } from "../atom";
+import styled from "styled-components";
+
+const ToDoLi = styled.li`
+  list-style: none;
+  width: 100%;
+  padding: 10px 0px;
+  border-bottom: solid 1px rgba(0, 0, 0, 0.5);
+  position: relative;
+`;
+
+const Button = styled.button`
+  width: 80px;
+  height: 30px;
+  position: absolute;
+  top: 50%;
+  margin-top: -15px;
+  right: 0px;
+  background-color: transparent;
+  border-radius: 5px;
+  border: solid 1px rgba(13, 2, 115, 1);
+  text-transform: uppercase;
+  &:nth-child(2) {
+    right: 80px;
+  }
+  &:nth-child(3) {
+    right: 160px;
+  }
+`;
 
 function ToDo({ text, category, id }: IToDo) {
   const setToDos = useSetRecoilState(toDoState);
@@ -26,27 +54,27 @@ function ToDo({ text, category, id }: IToDo) {
   };
 
   return (
-    <li>
+    <ToDoLi>
       <span>{text}</span>
       {category !== Categories.DOING && (
-        <button name={Categories.DOING} onClick={onClick}>
+        <Button name={Categories.DOING} onClick={onClick}>
           Doing
-        </button>
+        </Button>
       )}
       {category !== Categories.TO_DO && (
-        <button name={Categories.TO_DO} onClick={onClick}>
+        <Button name={Categories.TO_DO} onClick={onClick}>
           todo
-        </button>
+        </Button>
       )}
       {category !== Categories.DONE && (
-        <button name={Categories.DONE} onClick={onClick}>
+        <Button name={Categories.DONE} onClick={onClick}>
           done
-        </button>
+        </Button>
       )}
-      <button name={Categories.DLELTE} onClick={onClick}>
+      <Button name={Categories.DLELTE} onClick={onClick}>
         delete
-      </button>
-    </li>
+      </Button>
+    </ToDoLi>
   );
 }
 
